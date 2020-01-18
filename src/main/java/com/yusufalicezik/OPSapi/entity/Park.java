@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Park")
@@ -26,6 +27,10 @@ public class Park {
     @Column(name = "isPaid", columnDefinition = "boolean default false")
     private boolean isPaid;
 
+    @Column(name = "isOut")
+    private boolean isOut;
 
+    @Column(name = "date")
+    private Date date;
 }
 
