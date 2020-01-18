@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Camera")
@@ -29,5 +30,7 @@ public class Camera {
     @Column(name = "amount")
     private int amount;
 
+    @Column(name =  "date")
+    private Date date;
 
 }
