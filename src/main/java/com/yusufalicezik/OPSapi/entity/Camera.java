@@ -30,7 +30,5 @@ public class Camera {
     @Column(name = "amount")
     private int amount;
 
-    @Column(name =  "date")
-    private Date date;
 
 }

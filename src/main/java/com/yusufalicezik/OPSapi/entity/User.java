@@ -20,6 +20,9 @@ public class User {
     @Column(name = "fullName", length = 100)
     private String fullName;
 
+    @Column(name = "email", length = 100)
+    private String email;
+
     @Column(name = "password")
     private String password;
 

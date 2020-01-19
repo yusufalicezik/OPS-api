@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class CameraRestExceptionHandler {
+public class RestExceptionHandler {
 
+    //MARK: - CAMERA-PARK
 
     @ExceptionHandler
-    public ResponseEntity<CameraErrorResponse> handleException(CameraAlreadyExistError exc) {
+    public ResponseEntity<GlobalErrorResponse> handleException(GlobalError exc) {
 
-        CameraErrorResponse error = new CameraErrorResponse(
+        GlobalErrorResponse error = new GlobalErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 exc.getErrorMessage(),
                 System.currentTimeMillis());
@@ -23,13 +24,17 @@ public class CameraRestExceptionHandler {
 
     // catch any exception (catch all)
     @ExceptionHandler
-    public ResponseEntity<CameraErrorResponse> handleException(Exception exc) {
-        CameraErrorResponse error = new CameraErrorResponse(
+    public ResponseEntity<GlobalErrorResponse> handleException(Exception exc) {
+        GlobalErrorResponse error = new GlobalErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 exc.getMessage(),
                 System.currentTimeMillis());
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+
+    //MARK: - USER
+
 
 }

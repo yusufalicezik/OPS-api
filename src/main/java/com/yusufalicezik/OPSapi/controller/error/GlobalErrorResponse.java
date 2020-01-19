@@ -1,16 +1,16 @@
 package com.yusufalicezik.OPSapi.controller.error;
 
-public class CameraErrorResponse {
+public class GlobalErrorResponse {
 
     private int status;
     private String message;
     private long timeStamp;
 
-    public CameraErrorResponse() {
+    public GlobalErrorResponse() {
 
     }
 
-    public CameraErrorResponse(int status, String message, long timeStamp) {
+    public GlobalErrorResponse(int status, String message, long timeStamp) {
         this.status = status;
         this.message = message;
         this.timeStamp = timeStamp;

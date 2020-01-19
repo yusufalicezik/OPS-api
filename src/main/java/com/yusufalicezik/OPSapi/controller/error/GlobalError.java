@@ -1,8 +1,8 @@
 package com.yusufalicezik.OPSapi.controller.error;
 
-public class CameraAlreadyExistError extends Exception {
+public class GlobalError extends Exception {
     private String errorMessage;
-    public CameraAlreadyExistError(String errorMessage){
+    public GlobalError(String errorMessage){
         this.errorMessage = errorMessage;
     }
 

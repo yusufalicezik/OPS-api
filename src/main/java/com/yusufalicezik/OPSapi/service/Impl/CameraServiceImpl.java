@@ -1,6 +1,6 @@
 package com.yusufalicezik.OPSapi.service.Impl;
 
-import com.yusufalicezik.OPSapi.controller.error.CameraAlreadyExistError;
+import com.yusufalicezik.OPSapi.controller.error.GlobalError;
 import com.yusufalicezik.OPSapi.dto.Request.CameraRequestDto;
 import com.yusufalicezik.OPSapi.entity.Camera;
 import com.yusufalicezik.OPSapi.entity.Park;
@@ -10,14 +10,12 @@ import com.yusufalicezik.OPSapi.repository.CameraRapository;
 import com.yusufalicezik.OPSapi.repository.UserRepository;
 import com.yusufalicezik.OPSapi.service.CameraService;
 import com.yusufalicezik.OPSapi.utils.DateFormatter;
-import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,20 +31,18 @@ public class CameraServiceImpl implements CameraService {
     UserRepository userRepository;
 
     @Override
-    public Camera updateCameraStatus(CameraRequestDto cameraRequestDto) throws CameraAlreadyExistError { //Park cameraları, bağlı merkezler ve kullanıcının park detay/hesap detay/borç güncellenir.
+    public Camera updateCameraStatus(CameraRequestDto cameraRequestDto) throws GlobalError { //Park cameraları, bağlı merkezler ve kullanıcının park detay/hesap detay/borç güncellenir.
         User parkedUser = userRepository.getByPlateNo(cameraRequestDto.getPlateNo());
         if(parkedUser != null){
             if(updateStatus(parkedUser, cameraRequestDto)){
                 return cameraRapository.save(modelMapper.map(cameraRequestDto, Camera.class));
-            }else{
-                throw new CameraAlreadyExistError("Bu kullanıcının henüz çıkış yapılmamış parkı var. Çıkış yapıp tekrar deneyin");
             }
         }else{  //CREATE GUEST USER BY PLATE NO
             if(updateStatus(createGuestUser(cameraRequestDto), cameraRequestDto)){
                 return cameraRapository.save(modelMapper.map(cameraRequestDto, Camera.class));
             }
-       }
-        return null;
+         }
+        throw new GlobalError("Bu kullanıcının henüz çıkış yapılmamış parkı var. Çıkış yapıp tekrar deneyin");
     }
 
 
