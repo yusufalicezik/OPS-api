@@ -14,6 +14,7 @@ public class UserRequestDto {
     private String plateNo;
     private String phone;
     private int userType;
+    private String email;
     private String password;
     private UserDetail userDetail;
 

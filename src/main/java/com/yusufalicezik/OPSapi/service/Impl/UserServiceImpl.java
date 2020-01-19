@@ -1,5 +1,6 @@
 package com.yusufalicezik.OPSapi.service.Impl;
 
+import com.yusufalicezik.OPSapi.controller.error.GlobalError;
 import com.yusufalicezik.OPSapi.dto.Request.UserRequestDto;
 import com.yusufalicezik.OPSapi.dto.Response.UserResponseDto;
 import com.yusufalicezik.OPSapi.entity.User;
@@ -9,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     ModelMapper modelMapper;
+
 
     @Override
     public UserResponseDto save(UserRequestDto userRequestDto) {
@@ -37,5 +40,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto getUserByPlate(String plateNo) {
         return modelMapper.map(userRepository.getByPlateNo(plateNo), UserResponseDto.class);
+    }
+
+    @Override
+    public UserResponseDto loginWithEmailAndPassword(String email, String password) throws GlobalError {
+        User user = userRepository.getByEmailAndPassword(email, password);
+        if(user != null){
+            return modelMapper.map(user, UserResponseDto.class);
+        }
+        throw new GlobalError("Kullanıcı bulunamadı. Lütfen bilgilerinizi kontrol edip tekrar deneyin");
     }
 }

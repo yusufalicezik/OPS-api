@@ -1,6 +1,6 @@
 package com.yusufalicezik.OPSapi.controller;
 
-import com.yusufalicezik.OPSapi.controller.error.CameraAlreadyExistError;
+import com.yusufalicezik.OPSapi.controller.error.GlobalError;
 import com.yusufalicezik.OPSapi.dto.Request.CameraRequestDto;
 import com.yusufalicezik.OPSapi.entity.Camera;
 import com.yusufalicezik.OPSapi.service.Impl.CameraServiceImpl;
@@ -20,7 +20,7 @@ public class CameraController {
     //addNew,  Place de var.
 
     @PostMapping("/update")
-    public Camera updateCameraStatus(@RequestBody CameraRequestDto cameraRequestDto) throws CameraAlreadyExistError { //Error: Henüz çıkış yapılmamış parkı var. Çıkış yapılmadan yeni giriş olamaz.
+    public Camera updateCameraStatus(@RequestBody CameraRequestDto cameraRequestDto) throws GlobalError { //Error: Henüz çıkış yapılmamış parkı var. Çıkış yapılmadan yeni giriş olamaz.
         return cameraService.updateCameraStatus(cameraRequestDto);
     }
 }
